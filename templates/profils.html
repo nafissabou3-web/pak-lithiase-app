@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Les 4 profils lithiasiques — CHU Amiens</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+body{background:#F0F4F8;color:#2C3E50}
+.header{background:linear-gradient(135deg,#1F3A6E,#2E86AB);color:white;
+    padding:28px 40px;text-align:center}
+.header h1{font-size:26px;font-weight:700}
+.header p{font-size:14px;opacity:.85;margin-top:6px}
+.container{max-width:1100px;margin:30px auto;padding:0 20px 40px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.profil-card{background:white;border-radius:16px;padding:26px;
+    box-shadow:0 4px 16px rgba(0,0,0,.08);border-top:6px solid var(--c)}
+.profil-header{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.profil-icone{font-size:40px}
+.profil-num{font-size:11px;font-weight:700;text-transform:uppercase;
+    letter-spacing:.8px;opacity:.7;color:var(--c)}
+.profil-nom{font-size:18px;font-weight:700;color:var(--c);margin-top:2px}
+.profil-n{font-size:12px;color:#888;margin-top:2px}
+.profil-desc{font-size:13.5px;line-height:1.7;color:#555;
+    background:#F8FAFC;border-radius:8px;padding:14px;margin-bottom:16px}
+.section-title{font-size:12px;font-weight:700;text-transform:uppercase;
+    letter-spacing:.6px;color:#888;margin-bottom:8px}
+.reco-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.reco-list li{font-size:13px;color:#1E8449;padding:7px 12px;
+    background:#F0FFF4;border-radius:6px;border-left:3px solid #2ECC71;
+    display:flex;gap:8px}
+.reco-list li::before{content:"✓";font-weight:700;color:#2ECC71;flex-shrink:0}
+.back-btn{display:inline-block;margin-bottom:20px;color:#2E86AB;
+    font-weight:600;text-decoration:none;font-size:14px}
+.back-btn:hover{text-decoration:underline}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Les 4 profils phénotypiques</h1>
+    <p>Stratification issue de l'analyse K-Means sur 1157 patients · CHU Amiens · 2026</p>
+</div>
+<div class="container">
+    <a href="/" class="back-btn">← Retour à l'analyse</a>
+    <div class="grid">
+        {% for num, p in profils.items() %}
+        <div class="profil-card" style="--c:{{p.couleur}}">
+            <div class="profil-header">
+                <div class="profil-icone">{{p.icone}}</div>
+                <div>
+                    <div class="profil-num">Cluster {{num}}</div>
+                    <div class="profil-nom">{{p.nom}}</div>
+                </div>
+            </div>
+            <div class="profil-desc">{{p.description}}</div>
+            <div class="section-title">Recommandations clés</div>
+            <ul class="reco-list">
+                {% for r in p.recommandations[:4] %}
+                <li>{{r}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
